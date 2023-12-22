@@ -1,4 +1,5 @@
 node_modules
+.prettierrc
 .env
 
 /frontend/node_modules
