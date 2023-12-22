@@ -2,10 +2,10 @@ node_modules
 .prettierrc
 .env
 
-/frontend/node_modules
-/frontend/*.env
-/frontend/*.gitignore
+frontend/node_modules
+frontend/*.env
+frontend/*.gitignore
 
-/backend/node_modules
-/backend/*.env
-/backend/*.gitignore
+backend/node_modules
+backend/*.env
+backend/*.gitignore
