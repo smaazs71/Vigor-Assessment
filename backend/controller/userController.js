@@ -1,73 +1,129 @@
-import { userModel } from '../models/userModel.js';
-import asyncHandler from 'express-async-handler';
+import { userModel } from "../models/userModel.js";
+import asyncHandler from "express-async-handler";
+import { generateToken } from "../utils/jwt.js";
+import { sendOTPViaEmail } from "../utils/nodemailer.js";
+import otpGenerator from "otp-generator";
 
+// @desc GET a User by id
+export const getUserById = async (id) => {
+  try {
+    const user = await userModel.findById(id);
 
-// @desc Get All Users
-// @route api/v1/users
-// @access Public
-export const getAllUsers = asyncHandler( async ( req, res ) => {
-    const users = await userModel.find()
-    res.status(200).json({ msg: 'GET ALL USERS', users })
-})
+    if (!user) throw new Error("User not found");
 
-
-// @desc Get User by id
-// @route GET api/v1/users/:id
-// @access Private
-export const getUserById = asyncHandler( async (req,res) => {
-    const user = await userModel.findById(req.params.id)
-
-    res.status(200).json({ msg: "GET Data of ID: " + req.params.id, user })
-})
+    return user;
+  } catch (err) {
+    throw new Error("Error in fetching user: " + err.message);
+  }
+};
 
 // @desc Add User
-// @route POST api/v1/users
+// @route POST api/v1/user
 // @access Private
-export const setUser = asyncHandler( async (req,res) => {
-    if(!req.body){
-       res.status(400)
-       throw new Error('No data (body) found') 
-    }
-    console.log( 'Body: '+ JSON.stringify(req.body) );
+export const register = asyncHandler(async (req, res) => {
+  if (!req.body) {
+    res.status(400);
+    throw new Error("No data (body) found");
+  }
 
-    const { name, email, password } = req.body;
+  const {
+    userName,
+    name,
+    email,
+    password,
+    confirmPassword,
+    phoneNumber,
+    country,
+  } = req.body;
 
-    const user = await userModel.create({name, email, password});
+  if (password !== confirmPassword) throw new Error("password do not match");
 
-    res.status(200).json({ msg: "SET Data", user })
-})
+  const userCheck = await userModel.findOne({ userName });
+  if (userCheck) throw new Error("User with given details already exists");
+
+  const body = await userModel.create({
+    userName,
+    name,
+    email,
+    password,
+    phoneNumber,
+    country,
+  });
+  const otp = otpGenerator.generate(6, {
+    alphabets: false,
+    upperCase: false,
+    specialChars: false,
+  });
+
+  body.emailValidated = otp;
+
+  const user = new userModel(body);
+
+  user.save();
+
+  await sendOTPViaEmail(name, email, otp);
+
+  res.status(200).send("Success");
+});
 
 // @desc Get Update User
-// @route PUT api/v1/users/:id
+// @route PUT api/v1/user
 // @access Private
-export const updateUser = asyncHandler( async (req,res) => {
-    console.log( 'ID: ', req.params.id );
-    const id = req.params.id;
-    const user = await userModel.findById(id)
-    if(!user){
-        res.status(400)
-        throw new Error('User not found')
-    }
-    const updatedUser = await userModel.findByIdAndUpdate(id, req.body, {new:true})
-        
-    res.status(200).json({ msg: "UPDATE Data of ID: "+ id, updateUser })
-})
+export const updateUser = asyncHandler(async (req, res) => {
+  const { name, email, password, phoneNumber, country } = req.body;
 
-// @desc Get Delete User
-// @route DELETE api/v1/users/:id
-// @access Private
-export const deleteUser = asyncHandler( async (req,res) => {
-    const user = await userModel.findById(req.params.id)
-    if(!user){
-        res.status(400)
-        throw new Error('User not found')
-    }
+  const user = await userModel.findById(req.user._id);
 
-    await user.remove()
-    res.status(200).json({ msg: `DELETE Data of ID: ${ req.params.id }` })
-    
-    //                 OR
-    
-    // const deletedUser = await userModel.findByIdAndDelete(req.params.id, req.body, {new:true})
-    // res.status(200).json({ msg: `DELETE Data of ID: ${ req.params.id }`, deletedUser })
-})
+  if (name) user.name = name;
+  if (email) user.email = email;
+  if (password) user.password = password;
+  if (phoneNumber) user.phoneNumber = phoneNumber;
+  if (country) user.country = country;
+
+  await user.save();
+
+  // res.status(200).json(user);
+  res.status(200).send("Success");
+});
+
+// @desc login a User
+// @route POST api/v1/user/login
+// @access private
+export const login = asyncHandler(async (req, res) => {
+  const { userName, password } = req.body;
+
+  res.status(400);
+
+  if (!userName && !password)
+    throw new Error("Invalid userName or password required.");
+
+  const user = await userModel.findOne({ userName }).select("password");
+
+  if (!user) throw new Error("User not found");
+
+  console.log(user);
+  if (!user.validateUser(password)) throw new Error("Invalid credentials");
+
+  const token = generateToken(user._id);
+
+  res.set("Content-Type", "text/html").status(200).send(JSON.stringify(token));
+});
+
+// @desc get me
+// @route POST api/v1/user/validate-email
+// @access private
+export const validateEmail = asyncHandler(async (req, res) => {
+  //   console.log("ID: ", req.params.id);
+
+  const { OTP } = req.body;
+
+  const user = await userModel.findById(req.user._id);
+
+  if (OTP !== user.emailValidated) throw new Error("Invalid OTP");
+
+  user.emailValidated = true;
+
+  await user.save();
+
+  res.status(200).send("Success");
+});
