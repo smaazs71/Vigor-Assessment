@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 31, 41, 55; /* hsl(60, 28%, 17%);  #1f2937 */
+  --background-rgb: 250, 250, 250;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: "#1E1E2F";
+  font-family: "Inter", Helvetica;
+  /* background: rgb(var(--background-rgb)); */
+}
+
+.hero-text-wrapper {
+  font-size: 76px;
+  font-weight: 400;
+  left: 0;
+  letter-spacing: 0;
+  line-height: 76px;
+  white-space: nowrap;
+}
