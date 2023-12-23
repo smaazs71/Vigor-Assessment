@@ -8,7 +8,7 @@ const Hero = () => {
   const [selected, setSelected] = useState<Number>(1);
 
   return (
-    <div className="w-full h-full max-w-screen max-h-screen mt-36 md:mt-52 lg:mt-16 absolute">
+    <div className="mt-36 md:mt-52 lg:mt-28 absolute">
       <div className="h-full w-full max-h-full max-w-full flex items-start pl-[24px] justify-center gap-12 flex-col lg:flex-row lg:items-center lg:pl-[auto]">
         <div className="w-full flex flex-col items-center justify-center gap-12 max-w-72 mt-12">
           <div className="w-full flex flex-col items-start justify-center ">
@@ -52,7 +52,6 @@ const Hero = () => {
         </div>
       </div>
     </div>
-
   );
 };
 
