@@ -8,7 +8,7 @@ const Hero = () => {
   const [selected, setSelected] = useState<Number>(1);
 
   return (
-    <div className="w-full max-w-full overflow-x-hidden mt-20 sm:mt-36 md:mt-52 lg:mt-28 absolute">
+    <div className="w-full max-w-full mt-20 sm:mt-36 md:mt-52 lg:mt-28 absolute">
       <div className="h-full w-full max-h-full max-w-full flex items-start justify-center m-auto flex-col md:flex-row md:items-center">
         <div className="w-full flex flex-col items-start justify-center max-w-[30rem] gap-12 ml-7 my-6 md:items-center">
           <div className="w-full flex flex-col items-start justify-center max-w-72">
@@ -28,10 +28,10 @@ const Hero = () => {
             className={`overflow-x-hidden flex items-end justify-center gap-[40px] absolute transition transform duration-100 ease-in-out 
              ${
                selected === 1
-                 ? "translate-x-6"
+                 ? "translate-x-12"
                  : selected === 2
-                 ? "-translate-x-10"
-                 : "-translate-x-28"
+                 ? "-translate-x-24"
+                 : "-translate-x-40"
              } 
             md:relative md:translate-x-0 md:max-w-full `}
           >

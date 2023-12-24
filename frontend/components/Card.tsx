@@ -78,7 +78,9 @@ const Card = ({ currentPosition, selected, setSelected }: CardProps) => {
     <div
       onMouseEnter={() => setSelected(currentPosition)}
       onMouseLeave={() => (currentPosition !== 1 ? setSelected(1) : "")}
-      className={`z-10 relative transition duration-200 ease-in-out card-container`}
+      className={`z-10 relative transition duration-200 ease-in-out card-container ${
+        currentPosition === 3 ? "md:mr-0 mr-4" : ""
+      }`}
       // md:min-w-[${width}px] max-h-[${height}px]
       style={{
         display: "flex",
