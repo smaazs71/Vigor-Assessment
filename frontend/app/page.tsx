@@ -2,7 +2,7 @@ import { Hero } from "../components";
 
 const HomePage = ({ searchParams }: any) => {
   return (
-    <div className="lg:w-[90%] m-auto">
+    <div className="">
       <Hero />
     </div>
   );

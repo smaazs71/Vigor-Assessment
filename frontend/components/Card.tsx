@@ -52,22 +52,22 @@ const Card = ({ currentPosition, selected, setSelected }: CardProps) => {
 
   const dataArray = [
     {
-      bg: "linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.50) 100%), url(/wo_bg_employee1.png), lightgray 50% / cover no-repeat",
-      img: "/wo_bg_employee1.png",
+      bg: "linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.50) 100%), url(/employee1.png), lightgray 50% / cover no-repeat",
+      img: "/employee1.png",
       title: "Masterclass",
       description: "Real-wolrd learnings from best.",
       color: "bg-custom_yellow",
     },
     {
-      bg: "linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.50) 100%), url(/wo_bg_employee2.png), lightgray -81.279px 0px / 251.282% 100% no-repeat",
-      img: "/wo_bg_employee2.png",
+      bg: "linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.50) 100%), url(/employee2.png), lightgray -81.279px 0px / 251.282% 100% no-repeat",
+      img: "/employee2.png",
       title: "Webinar",
       description: "Learn industry relevent skill online.",
       color: "bg-custom_blue",
     },
     {
-      bg: "linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.50) 100%), url(/wo_bg_employee3.png), lightgray 50% / cover no-repeat",
-      img: "/wo_bg_employee3.png",
+      bg: "linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.50) 100%), url(/employee3.png), lightgray 50% / cover no-repeat",
+      img: "/employee3.png",
       title: "Podcast",
       description: "Learn industry trends from the experts.",
       color: "bg-custom_green",
@@ -78,24 +78,29 @@ const Card = ({ currentPosition, selected, setSelected }: CardProps) => {
     <div
       onMouseEnter={() => setSelected(currentPosition)}
       onMouseLeave={() => (currentPosition !== 1 ? setSelected(1) : "")}
-      className="z-10 relative transition duration-200 ease-in-out card-container md:max-w-[248px] max-h-[412px]"
+      className={`z-10 relative transition duration-200 ease-in-out card-container`}
+      // md:min-w-[${width}px] max-h-[${height}px]
       style={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         backgroundSize: "cover",
-        backgroundPosition: "50% 50%",
+        backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         height,
-        minWidth: width,
-        minHeight: height,
+        // minWidth: width,
+        // minHeight: height,
         width, //"590px", //448 334
         transitionProperty: "width, height",
         // flexShrink: 0,
         borderRadius: "16px",
-        background: dataArray[parseInt(currentPosition.toString()) - 1].bg,
+        backgroundImage: `url(${
+          dataArray[parseInt(currentPosition.toString()) - 1].img
+        })`,
+        // background: dataArray[parseInt(currentPosition.toString()) - 1].bg,
       }}
     >
+      {/* <div className="hidden min-h-[590px] min-h-[448px] min-h-[334px] min-h-[412px] min-w-[506px] min-w-[156px] min-w-[248px]"></div> */}
       {/* <Image
         className="h-full w-full rounded-[16px] absolute z-20"
         src={dataArray[parseInt(currentPosition.toString()) - 1].img}

@@ -8,10 +8,10 @@ const Hero = () => {
   const [selected, setSelected] = useState<Number>(1);
 
   return (
-    <div className="mt-24 sm:mt-36 md:mt-52 lg:mt-28 absolute">
-      <div className="p-[24px] h-full w-full max-h-full max-w-full flex items-start justify-center gap-12 flex-col md:flex-row md:items-center">
-        <div className="w-full flex flex-col items-center justify-center gap-12 max-w-72 mt-12">
-          <div className="w-full flex flex-col items-start justify-center ">
+    <div className="w-full max-w-full overflow-x-hidden mt-20 sm:mt-36 md:mt-52 lg:mt-28 absolute">
+      <div className="h-full w-full max-h-full max-w-full flex items-start justify-center m-auto flex-col md:flex-row md:items-center">
+        <div className="w-full flex flex-col items-start justify-center max-w-[30rem] gap-12 ml-7 my-6 md:items-center">
+          <div className="w-full flex flex-col items-start justify-center max-w-72">
             <div className="hero-text-wrapper">Explore.</div>
             <div className="hero-text-wrapper">Upskill.</div>
             <div className="hero-text-wrapper">Elevate.</div>
@@ -23,15 +23,17 @@ const Hero = () => {
             rightIcon="/arrow-right.svg"
           />
         </div>
-        <div className="min-h-[620px] w-full overflow-x-hidden">
+        <div className="my-5 w-full min-h-[620px]">
           <div
-            className={`w-full flex items-end justify-center gap-[40px] absolute max-w-[80%] ${
-              selected === 1
-                ? "translate-x-80"
-                : selected === 2
-                ? "translate-x-60"
-                : "-translate-x-6"
-            } md:relative md:translate-x-0 md:max-w-full `}
+            className={`overflow-x-hidden flex items-end justify-center gap-[40px] absolute transition transform duration-100 ease-in-out 
+             ${
+               selected === 1
+                 ? "translate-x-6"
+                 : selected === 2
+                 ? "-translate-x-10"
+                 : "-translate-x-28"
+             } 
+            md:relative md:translate-x-0 md:max-w-full `}
           >
             <Card
               currentPosition={1}
@@ -50,7 +52,7 @@ const Hero = () => {
             />
           </div>
         </div>
-        <div className="mb-5 pb-5">
+        <div className="m-5 pb-5 flex md:hidden">
           <CustomButton
             title="Discover Now"
             btnType="button"
