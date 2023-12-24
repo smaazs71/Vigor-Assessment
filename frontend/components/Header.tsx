@@ -9,42 +9,44 @@ const Header = () => {
   const [user, setUser] = useState<Boolean>(false);
 
   return (
-    <header id="header">
-      <div className="bg-white min-h-[86px] flex lg:hidden items-center justify-between t-0 max-w-screen p-0 px-[24px] m-0 ">
-        <Link href="/" className="flex">
-          <Image src="/logo.svg" alt="logo" width={131} height={34} />
-        </Link>
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
-          >
-            <rect width="32" height="32" fill="#173D7A" />
-            <path
-              d="M7 12H25"
-              stroke="white"
-              stroke-width="1.5"
-              stroke-linecap="round"
-            />
-            <path
-              d="M7 20H25"
-              stroke="white"
-              stroke-width="1.5"
-              stroke-linecap="round"
-            />
-          </svg>
+    <header id="header" className="">
+      <div className="bg-white min-h-[86px] z-40 fixed w-[100%] top-0 left-0">
+        <div className="m-auto w-[90%] p-[24px] items-center justify-between flex md:hidden">
+          <Link href="/" className="flex">
+            <Image src="/logo.svg" alt="logo" width={131} height={34} />
+          </Link>
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              fill="none"
+            >
+              <rect width="32" height="32" fill="#173D7A" />
+              <path
+                d="M7 12H25"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+              <path
+                d="M7 20H25"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
         </div>
       </div>
       <div
-        className="bg-white min-h-[86px] text-sm fixed items-center t-0 w-screen p-0 m-0 hidden lg:flex z-40"
+        className="bg-white min-h-[86px] text-sm fixed items-center t-0 w-full p-0 m-0 hidden md:flex z-40"
         style={{ boxShadow: "0px 2px 8px #0000001f" }}
       >
         <Disclosure>
           {({ open }) => (
-            <div className="w-full flex-col h-auto hidden lg:flex">
+            <div className="w-full flex-col h-auto hidden md:flex">
               <div className="w-[90%] m-auto py-5 relative z-40">
                 <div className="flex items-center justify-between">
                   <Link href="/" className="flex">
@@ -217,7 +219,7 @@ const Header = () => {
                   </div>
                 </div>
               </div>
-              <div className="absolute w-screen top-full ">
+              <div className="absolute w-full top-full ">
                 <Transition
                   show={open}
                   enter="transition duration-500 ease-linear"

@@ -78,7 +78,7 @@ const Card = ({ currentPosition, selected, setSelected }: CardProps) => {
     <div
       onMouseEnter={() => setSelected(currentPosition)}
       onMouseLeave={() => (currentPosition !== 1 ? setSelected(1) : "")}
-      className="z-10 relative transition duration-200 ease-in-out card-container"
+      className="z-10 relative transition duration-200 ease-in-out card-container md:max-w-[248px] max-h-[412px]"
       style={{
         display: "flex",
         justifyContent: "center",
@@ -87,6 +87,8 @@ const Card = ({ currentPosition, selected, setSelected }: CardProps) => {
         backgroundPosition: "50% 50%",
         backgroundRepeat: "no-repeat",
         height,
+        minWidth: width,
+        minHeight: height,
         width, //"590px", //448 334
         transitionProperty: "width, height",
         // flexShrink: 0,
