@@ -35,21 +35,13 @@ const Hero = () => {
              } 
             md:relative md:translate-x-0 md:max-w-full `}
           >
-            <Card
-              currentPosition={1}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Card
-              currentPosition={2}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Card
-              currentPosition={3}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            {[1, 2, 3].map((ele) => (
+              <Card
+                currentPosition={ele}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            ))}
           </div>
         </div>
         <div className="m-5 pb-5 flex md:hidden">
